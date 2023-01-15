@@ -24,7 +24,7 @@ class AuthorController extends Controller
         ]);
     }
 
-    public function show(int $id)
+    public function show(int $id): JsonResponse
     {
         $author = Author::find($id);
 
@@ -34,7 +34,7 @@ class AuthorController extends Controller
         ]);
     }
 
-    public function create(Request $request)
+    public function create(Request $request): JsonResponse
     {
         $request->validate([
             'name' => 'required|string|max:255',
@@ -51,7 +51,7 @@ class AuthorController extends Controller
         ]);
     }
 
-    public function update(Request $request)
+    public function update(Request $request): JsonResponse
     {
         $request->validate([
             'title' => 'required|string|max:255',
@@ -69,7 +69,7 @@ class AuthorController extends Controller
         ]);
     }
 
-    public function delete(int $id)
+    public function delete(int $id): JsonResponse
     {
         $author = Author::find($id);
         $author->delete();

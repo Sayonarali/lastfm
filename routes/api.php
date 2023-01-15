@@ -39,3 +39,4 @@ Route::controller(AuthorController::class)->group(function ()
     Route::put('author', 'update');
     Route::delete('author/{id}', 'delete');
 });
+

@@ -29,15 +29,16 @@ class AuthController extends Controller
             'password' => Hash::make($request->password),
         ]);
 
-        if (!$token = Auth::attempt($user)) {
+        $credentials = $request->only('email', 'password');
+
+        if (!$token = Auth::attempt($credentials)) {
             return response()->json(['error' => 'Unauthorized'], 401);
         }
 
         return response()->json([
-            'status' => 'success',
             'message' => 'User created successfully',
             'user' => $user,
-            'authorisation' => [
+            'authorization' => [
                 'token' => $token,
                 'type' => 'bearer',
             ]
@@ -54,15 +55,13 @@ class AuthController extends Controller
 
         if (!$token = Auth::attempt($credentials)) {
             return response()->json([
-                'status' => 'error',
                 'message' => 'Unauthorized',
             ], 401);
         }
 
         return response()->json([
-            'status' => 'success',
             'user' => Auth::user(),
-            'authorisation' => [
+            'authorization' => [
                 'token' => $token,
                 'type' => 'bearer',
             ]
@@ -74,7 +73,6 @@ class AuthController extends Controller
         Auth::logout();
 
         return response()->json([
-            'status' => 'success',
             'message' => 'Successfully logged out'
         ]);
     }
@@ -82,12 +80,11 @@ class AuthController extends Controller
     public function refresh(): JsonResponse
     {
         return response()->json([
-            'status' => 'success',
             'user' => Auth::user(),
-            'authorisation' => [
+            'authorization' => [
                 'token' => Auth::refresh(),
                 'type' => 'bearer',
-                ]
+            ]
         ]);
     }
 }

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\AuthorController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,9 +17,17 @@ use Illuminate\Support\Facades\Route;
 
 Route::controller(AuthController::class)->group(function ()
 {
-    Route::post('register', 'register');
-    Route::post('login', 'login');
-    Route::post('logout', 'logout');
-    Route::post('refresh', 'refresh');
+    Route::post('auth/register', 'register');
+    Route::post('auth/login', 'login');
+    Route::post('auth/logout', 'logout');
+    Route::post('auth/refresh', 'refresh');
 });
 
+Route::controller(AuthorController::class)->group(function ()
+{
+    Route::get('author', 'index');
+    Route::get('author/{id}', 'show');
+    Route::post('author', 'create');
+    Route::put('author', 'update');
+    Route::delete('author/{id}', 'delete');
+});

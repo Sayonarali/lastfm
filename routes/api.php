@@ -25,6 +25,14 @@ Route::controller(AuthController::class)->group(function ()
 
 Route::controller(AuthorController::class)->group(function ()
 {
+    Route::get('user', 'index');
+    Route::get('user/{id}', 'show');
+    Route::put('user', 'update');
+    Route::delete('user/{id}', 'delete');
+});
+
+Route::controller(AuthorController::class)->group(function ()
+{
     Route::get('author', 'index');
     Route::get('author/{id}', 'show');
     Route::post('author', 'create');
